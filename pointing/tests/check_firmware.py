@@ -13,7 +13,12 @@ with open(sys.argv[1], "rb") as stream:
     keymap = symbols["zmk_event_sub_keymapzmk_position_state_changed"]
     if auto >= keymap:
         raise SystemExit("FAIL: auto mouse must receive a press before keymap (including &none)")
+    alt_tab = symbols["zmk_event_sub_kobito_alt_tabzmk_keycode_state_changed"]
+    hid = symbols["zmk_event_sub_hid_listenerzmk_keycode_state_changed"]
+    if alt_tab >= hid:
+        raise SystemExit("FAIL: Alt-Tab must consume navigation keys before HID")
     for name in ("motion_timeout", "click_timeout", "prior_idle", "auto_enabled", "precision_divisor"):
         if name not in symbols:
             raise SystemExit(f"FAIL: missing Studio setting {name}")
     print("PASS: auto-mouse listener precedes keymap; five custom settings linked")
+    print("PASS: Alt-Tab listener precedes HID")

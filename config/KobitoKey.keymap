@@ -18,6 +18,14 @@
 };
 
 / {
+    behaviors {
+        alttab: alt_tab {
+            compatible = "kobito,alt-tab";
+            display-name = "Alt+Tab switcher";
+            #binding-cells = <0>;
+        };
+    };
+
     // Defaults are seeded into editable runtime macro slots on first boot.
     // On a fresh settings store: my_kakko = slot 0, my_kagi = slot 1.
     runtime_macro_defaults {
@@ -62,6 +70,16 @@
             key-positions = <4 5>;
             layers = <0>;
             timeout-ms = <80>;
+        };
+
+        CMB_ALTTAB {
+            slot = <3>;
+            display-name = "CMB_ALTTAB";
+            bindings = <&alttab>;
+            key-positions = <12 13>;
+            layers = <0>;
+            timeout-ms = <80>;
+            slow-release;
         };
     };
 
