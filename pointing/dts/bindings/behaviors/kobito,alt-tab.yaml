@@ -1,0 +1,3 @@
+description: Hold Alt for a combo, tap Tab on activation, navigate with F and S
+compatible: "kobito,alt-tab"
+include: zero_param.yaml

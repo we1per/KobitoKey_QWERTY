@@ -1,5 +1,6 @@
 #include <input/processors.dtsi>
 #include <behaviors.dtsi>
+#include <behaviors/runtime_macro.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
@@ -17,26 +18,36 @@
 };
 
 / {
-    macros {
-        my_kakko: my_kakko {
-            compatible = "zmk,behavior-macro";
+    behaviors {
+        alttab: alt_tab {
+            compatible = "kobito,alt-tab";
+            display-name = "Alt+Tab switcher";
             #binding-cells = <0>;
-            bindings = <&kp LS(N8) &kp LS(N9)>;
         };
-
-        my_kagi: my_kagi {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp RIGHT_BRACKET &kp NUHS>;
-            label = "MY_KAGI";
-        };
-
     };
 
-    combos {
-        compatible = "zmk,combos";
+    // Defaults are seeded into editable runtime macro slots on first boot.
+    // On a fresh settings store: my_kakko = slot 0, my_kagi = slot 1.
+    runtime_macro_defaults {
+        my_kakko {
+            compatible = "cormoran,runtime-macro-default";
+            macro-name = "my_kakko";
+            bindings = <&kp LS(N8)>, <&macro_wait_time 15>, <&kp LS(N9)>;
+        };
+
+        my_kagi {
+            compatible = "cormoran,runtime-macro-default";
+            macro-name = "my_kagi";
+            bindings = <&kp RIGHT_BRACKET>, <&macro_wait_time 15>, <&kp NUHS>;
+        };
+    };
+
+    runtime_combo_defaults {
+        compatible = "cormoran,runtime-combo-defaults";
 
         PASTE_VALUE {
+            slot = <0>;
+            display-name = "PASTE_VALUE";
             bindings = <&kp LS(LC(V))>;
             key-positions = <22 23>;
             layers = <0>;
@@ -44,19 +55,32 @@
         };
 
         KAKKO {
-            bindings = <&my_kakko>;
+            slot = <1>;
+            display-name = "KAKKO";
+            bindings = <&rmacro 0>;
             key-positions = <14 15>;
-            timeout-ms = <80>;
             layers = <0>;
+            timeout-ms = <80>;
         };
 
         KAGIKAKKO {
-            bindings = <&my_kagi>;
+            slot = <2>;
+            display-name = "KAGIKAKKO";
+            bindings = <&rmacro 1>;
             key-positions = <4 5>;
             layers = <0>;
             timeout-ms = <80>;
         };
 
+        CMB_ALTTAB {
+            slot = <3>;
+            display-name = "CMB_ALTTAB";
+            bindings = <&alttab>;
+            key-positions = <12 13>;
+            layers = <0>;
+            timeout-ms = <80>;
+            slow-release;
+        };
     };
 
     keymap {

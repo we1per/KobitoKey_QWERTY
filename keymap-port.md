@@ -66,6 +66,8 @@ Right Altの表示確認元：<https://github.com/remap-keys/remap/blob/main/src
 
 ## コンボ
 
+後から追加したD+FのAlt+Tab専用ビヘイビアは [Alt+Tabコンボ](dya-alt-tab.md) を参照。
+
 レイヤー0のみ、判定時間80ms。元の位置番号を小人キーの対応位置へ変換した。
 
 | 同時押し | 小人キー位置 | 出力 |
@@ -85,11 +87,10 @@ Right Altの表示確認元：<https://github.com/remap-keys/remap/blob/main/src
 - keyball39 PDFのMacro 0・1、`Kb xx` のカスタムキーコード、Mouse Btn8。対象位置は `&none`。MoooseFree由来のコンボと、コンボから使用する `my_kakko`・`my_kagi` は維持。未使用の `to_layer_0`・`shift_space`・`lt_to_layer_0` は削除した。
 
 未移植の機能には、新しい代替キーを割り当てていない。
-ZMKの依存バージョン、ビルド設定は変更していない。
+keyball39配列への移植時点ではZMKの依存バージョン・ビルド設定を維持していた。その後のDYA Studio対応では、依存・ボード指定・コンボ／マクロ形式を更新している。現在の構成と更新手順は [DYA Studio対応メモ](dya-studio.md) を参照。
 LED設定はレイヤー番号の変更に合わせ、FUNCTION（3）を青、SHORTCUT（4）を青、BLUETOOTH（5）をマゼンタ、MOUSE（6）をシアンに設定した。
 
 ## 検証
 
 全7レイヤーが40バインディングであること、PDF対応、Bluetoothの配列と出入口、レイヤー遷移先、自動マウスの遷移先、マウス1〜3の位置・重複防止、およびレイヤー5・6の未割り当て位置が `&none` であることを静的に確認。今回のレイヤー1〜4・6の移植では、レイヤー0と5を変更していない。
-ローカル環境には ZMK/Zephyr のビルド環境がないため、ファームウェアのコンパイルと実機動作は未確認。
-既存の `.github/workflows/build.yml` の ZMK ビルドで、左右両方のファームウェアを確認する必要がある。
+keyball39配列への移植はコミット `b906b632f1d05c1532673ede4bbd387d524eff03` でユーザーによる実機確認済み。DYA Studio対応後のビルド・実機確認状況は [対応メモ](dya-studio.md) に記録する。

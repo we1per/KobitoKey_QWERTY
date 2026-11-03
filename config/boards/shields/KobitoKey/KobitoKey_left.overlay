@@ -2,6 +2,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <input/processors.dtsi>
 #include <input/processors/sensor_rotation.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
 
 &xiao_serial { status = "disabled"; };
 
@@ -33,7 +34,7 @@
 
     tb_left: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";
+        compatible = "pixart,pmw3610-alt";
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
@@ -68,18 +69,23 @@
 
     input-processors =
             <&sensor_rotation_left>,
-            <&zip_x_scaler 0 1>,
-            <&zip_y_scaler 1 15>,
-            <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
+            <&scroll_runtime_input_processor>;
     };
 
 / {
-  /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
-    compatible = "zmk,input-processor-temp-layer";
-    #input-processor-cells = <2>;
-    require-prior-idle-ms = <350>; /* キー押下後、何msオートマウスレイヤに入らないようにするか、誤爆防止 */
+  behaviors {
+    precision: precision {
+      compatible = "kobito,precision";
+      display-name = "Pointer precision (hold)";
+      #binding-cells = <0>;
+    };
+  };
+
+  kobito_auto_mouse: auto-mouse {
+    compatible = "kobito,auto-mouse";
+    #input-processor-cells = <0>;
+    layer = <6>;
+    excluded-positions = <6 7 8 30 32 33 39>;
   };
 };
 
@@ -88,17 +94,24 @@
 
     input-processors =
         <&sensor_rotation_right>,
-        <&zip_temp_layer 6 5000>; /* オートマウスレイヤーの指定とトラボ操作及びマウスボタン押下後に滞留する時間 */
+        <&kobito_auto_mouse>,
+        <&mouse_runtime_input_processor>;
 };
 
-&zip_temp_layer {
-    excluded-positions = <
-        6
-        7
-        8
-        30
-        32
-        33
-        39
-    >;
+/* Keep the mounting-angle corrections above; Studio rotation is an extra offset. */
+&scroll_runtime_input_processor {
+    /delete-property/ temp-layer-keep-keycodes;
+    x-codes = <INPUT_REL_X>;
+    y-codes = <INPUT_REL_Y>;
+    scale-divisor = <15>;
+    xy-to-scroll-enabled;
+    x-invert;
+    y-invert;
+    axis-snap-mode = <2>;
+};
+
+&mouse_runtime_input_processor {
+    /delete-property/ temp-layer-keep-keycodes;
+    /* Use KobitoKey's position-based auto-mouse processor, not the generic one. */
+    temp-layer-deactivation-delay-ms = <10000>;
 };

@@ -1,0 +1,16 @@
+name: Keyboard behavior tests
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  auto-mouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check timer precedence and drag handling
+        run: |
+          cc -std=c11 -Wall -Wextra -Werror -pedantic pointing/tests/auto_mouse_policy_test.c -o /tmp/auto_mouse_policy_test
+          /tmp/auto_mouse_policy_test
+      - name: Check Alt-Tab holds, navigation and release cleanup
+        run: |
+          cc -std=c11 -Wall -Wextra -Werror -pedantic pointing/tests/alt_tab_policy_test.c -o /tmp/alt_tab_policy_test
+          /tmp/alt_tab_policy_test
