@@ -18,7 +18,7 @@
 BUILD_ASSERT(DT_NUM_INST_STATUS_OKAY(kobito_auto_mouse) == 1);
 BUILD_ASSERT(ZMK_KEYMAP_LEN <= 64);
 
-KOBITO_SETTING_INT(motion_timeout, "auto_mouse/motion_timeout_ms", 5000, 1, 60000);
+KOBITO_SETTING_INT(motion_timeout, "auto_mouse/motion_timeout_ms", 10000, 1, 60000);
 KOBITO_SETTING_INT(click_timeout, "auto_mouse/click_timeout_ms", 800, 1, 60000);
 KOBITO_SETTING_INT(prior_idle, "auto_mouse/prior_idle_ms", 350, 0, 10000);
 ZMK_CUSTOM_SETTING_DEFINE(
@@ -30,7 +30,7 @@ ZMK_CUSTOM_SETTING_DEFINE(
 static struct auto_mouse_policy policy;
 static bool owned_layer;
 static bool enabled = true;
-static int32_t motion_ms = 5000, click_ms = 800, idle_ms = 350;
+static int32_t motion_ms = 10000, click_ms = 800, idle_ms = 350;
 static const uint32_t excluded[] = DT_PROP(AUTO_NODE, excluded_positions);
 K_MUTEX_DEFINE(auto_lock);
 
@@ -130,7 +130,7 @@ static int position_changed(const struct zmk_position_state_changed *ev) {
 
 static void reload_settings(void) {
     /* Read before auto_lock: custom-settings notifications may hold its own lock. */
-    int32_t new_motion = kobito_setting_int(&motion_timeout, 5000);
+    int32_t new_motion = kobito_setting_int(&motion_timeout, 10000);
     int32_t new_click = kobito_setting_int(&click_timeout, 800);
     int32_t new_idle = kobito_setting_int(&prior_idle, 350);
     struct zmk_custom_setting_value value;

@@ -113,5 +113,5 @@
 &mouse_runtime_input_processor {
     /delete-property/ temp-layer-keep-keycodes;
     /* Use KobitoKey's position-based auto-mouse processor, not the generic one. */
-    temp-layer-deactivation-delay-ms = <5000>;
+    temp-layer-deactivation-delay-ms = <10000>;
 };
