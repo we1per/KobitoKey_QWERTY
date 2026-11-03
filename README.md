@@ -2,6 +2,8 @@
 
 現在のキーマップは MoooseFree からの部分移植を基に、keyball39 の配列に合わせています。レイヤー構成、下段キー、コンボ、未移植の機能は [移植メモ](keymap-port.md) を参照してください。
 
+DYA Studioでのコンボ・マクロ編集対応と更新手順は [DYA Studio対応メモ](dya-studio.md) を参照してください。
+
 小人キーや人キーのケース、TypeSurfer各種の3DデータはReleasesよりダウンロード出来ます。
 ダサい使い方はしないこと。
 
