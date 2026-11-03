@@ -66,6 +66,8 @@ Right Altの表示確認元：<https://github.com/remap-keys/remap/blob/main/src
 
 ## コンボ
 
+後から追加したD+FのAlt+Tab専用ビヘイビアは [Alt+Tabコンボ](dya-alt-tab.md) を参照。
+
 レイヤー0のみ、判定時間80ms。元の位置番号を小人キーの対応位置へ変換した。
 
 | 同時押し | 小人キー位置 | 出力 |

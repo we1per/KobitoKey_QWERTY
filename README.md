@@ -4,6 +4,7 @@
 
 DYA Studioでのコンボ・マクロ編集対応と更新手順は [DYA Studio対応メモ](dya-studio.md) を参照してください。
 トラックボールの感度・スクロール・自動マウスの調整は [ポインティング設定](dya-pointing.md) を参照してください。
+D+Fによるウィンドウ切り替えは [Alt+Tabコンボ](dya-alt-tab.md) を参照してください。
 
 小人キーや人キーのケース、TypeSurfer各種の3DデータはReleasesよりダウンロード出来ます。
 ダサい使い方はしないこと。
