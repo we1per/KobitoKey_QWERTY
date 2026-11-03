@@ -1,0 +1,5 @@
+config KOBITOKEY_POINTING
+    bool "KobitoKey Studio pointing and automatic mouse support"
+    depends on ZMK_POINTING && ZMK_SPLIT_ROLE_CENTRAL
+    select ZMK_CUSTOM_SETTINGS
+    select ZMK_CUSTOM_SETTINGS_STUDIO_RPC

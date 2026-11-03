@@ -1,0 +1,12 @@
+name: Pointing policy tests
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  auto-mouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check timer precedence and drag handling
+        run: |
+          cc -std=c11 -Wall -Wextra -Werror -pedantic pointing/tests/auto_mouse_policy_test.c -o /tmp/auto_mouse_policy_test
+          /tmp/auto_mouse_policy_test

@@ -1,0 +1,6 @@
+name: kobitokey-pointing
+build:
+  cmake: pointing
+  kconfig: pointing/Kconfig
+  settings:
+    dts_root: pointing

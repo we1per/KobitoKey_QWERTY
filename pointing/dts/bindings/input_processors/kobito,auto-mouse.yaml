@@ -1,0 +1,15 @@
+description: KobitoKey position-based automatic mouse layer with separate click timeout
+compatible: "kobito,auto-mouse"
+include: base.yaml
+properties:
+  track-remainders:
+    type: boolean
+  "#input-processor-cells":
+    type: int
+    const: 0
+  layer:
+    type: int
+    required: true
+  excluded-positions:
+    type: array
+    required: true
